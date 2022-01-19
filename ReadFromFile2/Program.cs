@@ -6,10 +6,8 @@ namespace ReadFromFile2
     {
         static void Main(string[] args)
         {
-
-            var ferramentas = new Ferramentas();
             var fluxo = new Fluxo();
-            fluxo.ImportacaoDeClientes(ferramentas.LerArquivo());
+            fluxo.ExportarParaDB(fluxo.LerArquivo());
         }
     }
 }

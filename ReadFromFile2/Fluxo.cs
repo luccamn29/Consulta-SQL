@@ -8,7 +8,7 @@ namespace ReadFromFile2
 {
     public class Fluxo
     {
-        public void ImportacaoDeClientes(List<Entidade.Cliente> listaClientes)
+        public void ExportarParaDB(List<Entidade.Cliente> listaClientes)
         {
             var sql = new Conexoes.Sql();
             foreach(Entidade.Cliente cliente in listaClientes)
@@ -16,6 +16,34 @@ namespace ReadFromFile2
                 sql.inserir_BaseMarketing(cliente);
             }
 
+        }
+
+        public List<Entidade.Cliente> LerArquivo()
+        {
+
+            var listaClientes = new List<Entidade.Cliente>();
+
+            string cpf, nome, sexo, idade, nacionalidade;
+            var reader = new System.IO.StreamReader(@"C:\Users\lucca\Dropbox\Curso Rumo Exercícios\Exercicios\Importacao Questionarios\Clientes.txt");
+
+            while (!reader.EndOfStream)
+            {
+                string linha = reader.ReadLine();
+                cpf = linha.Substring(0, 11);
+                nome = linha.Substring(11, 80);
+                sexo = linha.Substring(91, 1);
+                idade = linha.Substring(92, 3);
+                nacionalidade = linha.Substring(95, 20);
+
+                var cliente = new Entidade.Cliente();
+                cliente.cpf = cpf;
+                cliente.nome = nome.TrimStart();
+                cliente.sexo = sexo;
+                cliente.idade = Convert.ToInt32(idade);
+                cliente.nacionalidade = nacionalidade.TrimStart();
+                listaClientes.Add(cliente);
+            }
+            return listaClientes;
         }
     }
 }
