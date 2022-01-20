@@ -8,12 +8,19 @@ namespace ReadFromFile2
 {
     public class Fluxo
     {
-        public void ExportarParaDB(List<Entidade.Cliente> listaClientes)
+        public void ExportarListaParaDB(List<Entidade.Cliente> listaClientes)
         {
             var sql = new Conexoes.Sql();
-            foreach(Entidade.Cliente cliente in listaClientes)
+            foreach(var cliente in listaClientes)
             {
-                sql.inserir_BaseMarketing(cliente);
+                if (sql.VerificarSeHaRegistro(cliente.cpf))
+                {
+                    sql.AlterarClienteNaDB(cliente);
+                }
+                else
+                {
+                    sql.ExportarClienteParaDB(cliente);
+                }
             }
 
         }

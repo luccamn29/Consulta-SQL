@@ -7,7 +7,7 @@ namespace ReadFromFile2
         static void Main(string[] args)
         {
             var fluxo = new Fluxo();
-            fluxo.ExportarParaDB(fluxo.LerArquivo());
+            fluxo.ExportarListaParaDB(fluxo.LerArquivo());
         }
     }
 }
